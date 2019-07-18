@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import Routes from './components/Routes';
+import RoutesContainer from './containers/RoutesContainer';
 
 class App extends React.Component {
 
   render() {
     return (
       <div className="App">
-        <Routes />
+        <RoutesContainer />
       </div>
     );
   }

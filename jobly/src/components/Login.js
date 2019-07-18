@@ -28,8 +28,7 @@ class Login extends Component {
 
   async handleSubmit(e) {
     e.preventDefault();
-    await this.props.setAuthUser(this.state);
-    // creates an empty object to reset state
+    this.props.onLogin(this.state);
     const newState = Object.keys(this.state).reduce((acc, key) => {
       typeof key === 'string' 
         ? acc[key] = '' 
@@ -37,8 +36,6 @@ class Login extends Component {
       return acc;
     }, {});
     this.setState({ newState });
-
-    this.props.history.push("/jobs");
   }
 
   handleChange(e) {
@@ -53,6 +50,8 @@ class Login extends Component {
 
   render() {
     const { isSignUp } = this.state;
+    console.log(this.props);
+    
 
     const buttonLabel = isSignUp
       ? 'Register'

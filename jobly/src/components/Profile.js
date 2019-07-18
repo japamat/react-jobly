@@ -20,22 +20,20 @@ export default class Profile extends Component {
     this.props.history.push("/jobs");
   }
 
-  async componentDidMount() {
-    const { username } = this.state.user;
-    let user = await JoblyApi.getUser(username);
-    this.setState({user})
-  }
-
   render() {
-    const { user } = this.state;
+    const user = this.props;
+    console.log(user);
+    
 
     // Only display form once the user has really been updated
     // if it contains 'iat', it has NOT been updated.
-    const formToShow = (user.iat)
+    const formToShow = (!user.iat)
       ? null
       : <EditProfileForm user={user} updateUser={this.updateUser} />
     
-      return (
+    console.log(formToShow);
+    
+    return (
       <div>
         {formToShow}
       </div>

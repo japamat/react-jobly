@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import JoblyApi from '../JoblyApi';
-import { getCurrentUser } from '../helpers';
+import { getCurrentUser } from '../localStorageHelpers';
 
 class Job extends Component {
 

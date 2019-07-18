@@ -1,27 +1,10 @@
 import React, { Component } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import Search from './Search';
-import { withRouter } from 'react-router';
 import './NavBar.css';
-import { getCurrentUser } from '../helpers';
-import JoblyApi from '../JoblyApi';
 
 class NavBar extends Component {
-	constructor(props) {
-		super(props);
-
-		this.logUserOut = this.logUserOut.bind(this);
-		this.loggedInNav = this.loggedInNav.bind(this);
-		this.loggedOutNav = this.loggedOutNav.bind(this);
-	}
-
-	logUserOut() {
-    this.props.logOut();
-		this.forceUpdate();
-		this.props.history.push('/');
-	}
-
-	loggedInNav() {
+	loggedInNav = () => {
 		return (
 			<div className="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul className="navbar-nav">
@@ -36,7 +19,7 @@ class NavBar extends Component {
 						</NavLink>
 					</li>
 					<li className="nav-item mr-4">
-							<Link className="nav-link" to="/" onClick={this.logUserOut}>
+							<Link className="nav-link" to="/" onClick={this.props.onLogout}>
 								Log Out
 							</Link>
 					</li>
@@ -46,7 +29,7 @@ class NavBar extends Component {
 		);
 	}
 
-	loggedOutNav() {
+	loggedOutNav = () => {
 		return (
 			<div className="collapse navbar-collapse" id="navbarSupportedContent">
 
@@ -62,20 +45,18 @@ class NavBar extends Component {
 	}
 
 	render() {
-		const user = getCurrentUser();
-
-		const logInOrOut = user ? this.loggedInNav() : this.loggedOutNav();
+		const { username } = this.props;
+		const logInOrOut = username ? this.loggedInNav() : this.loggedOutNav();
 
 		return (
 			<nav className="nav-bar-custom navbar navbar-expand-md mb-3">
-          <Link className="navbar-brand" to="/">
-            Jobly
-          </Link>
-					{logInOrOut}
-		</nav>
-
+				<Link className="navbar-brand" to="/">
+					Jobly
+				</Link>
+				{logInOrOut}
+			</nav>
 		);
 	}
 }
 
-export default withRouter(NavBar);
+export default NavBar;
